@@ -4,15 +4,15 @@
 #include <stdbool.h>
 
 // CONSTANTES
-#define TAMANHO_MAX_GRID 15        // Tamanho máximo do grid (15x15)
-#define MAX_PALAVRAS 50            // Número máximo de palavras no puzzle
-#define TAMANHO_MAX_PALAVRA 15     // Tamanho máximo de uma palavra
-#define TAMANHO_MAX_DICA 200       // Tamanho máximo da dica
+#define TAMANHO_MAX_GRID 15 // Tamanho máximo do grid (15x15)
+#define MAX_PALAVRAS 50
+#define TAMANHO_MAX_PALAVRA 15
+#define TAMANHO_MAX_DICA 200
 
 //Tipo de célula no grid
 typedef enum {
     CELULA_VAZIA = 0,        // Célula vazia (pode ser preenchida)
-    CELULA_BLOQUEADA = 1,    // Célula bloqueada (preta)
+    CELULA_BLOQUEADA = 1,    // Célula bloqueada (azul)
     CELULA_PREENCHIDA = 2    // Célula com letra
 } TipoCelula;
 
@@ -44,32 +44,32 @@ typedef struct {
 
 //Palavra no puzzle
 typedef struct {
-    Posicao inicio;                           // Posição inicial
-    Direcao direcao;                          // Direção da palavra
-    int tamanho;                              // Tamanho da palavra
-    char dica[TAMANHO_MAX_DICA];             // Significado
-    char resposta[TAMANHO_MAX_PALAVRA + 1];  // Resposta correta
-    char textoAtual[TAMANHO_MAX_PALAVRA + 1]; // Texto atual preenchido
-    bool estaCompleta;                        // Se está completamente preenchida
+    Posicao inicio;
+    Direcao direcao;
+    int tamanho;
+    char dica[TAMANHO_MAX_DICA];
+    char resposta[TAMANHO_MAX_PALAVRA + 1];
+    char textoAtual[TAMANHO_MAX_PALAVRA + 1];
+    bool estaCompleta;
 } Palavra;
 
 //Grid (tabuleiro) de palavras cruzadas
 typedef struct {
-    Celula celulas[TAMANHO_MAX_GRID][TAMANHO_MAX_GRID];  // Matriz de células
-    int linhas;                                           // Linhas usadas
-    int colunas;                                          // Colunas usadas
-    Palavra palavras[MAX_PALAVRAS];                       // Array de palavras
-    int numPalavras;                                      // Número de palavras
+    Celula celulas[TAMANHO_MAX_GRID][TAMANHO_MAX_GRID];
+    int linhas;
+    int colunas;
+    Palavra palavras[MAX_PALAVRAS];
+    int numPalavras;
 } Grid;
 
 //Estado completo do jogo
 typedef struct {
-    Grid grid;              // Grid atual
-    ModoJogo modo;          // Modo de jogo
-    int tentativas;         // Número de tentativas
-    int retrocessos;        // Número de backtracks
-    bool estaCompleto;      // Se o puzzle está completo
-    bool estaResolvido;     // Se está resolvido corretamente
+    Grid grid;
+    ModoJogo modo;
+    int tentativas;
+    int retrocessos; // Número de backtracks
+    bool estaCompleto;
+    bool estaResolvido;
 } EstadoJogo;
 
 #endif 

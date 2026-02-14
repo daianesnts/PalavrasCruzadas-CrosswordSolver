@@ -27,6 +27,7 @@ echo Compiling...
   src\external\api_client.c ^
   src\game\solver.c ^
   src\game\validation.c ^
+  src\game\puzzle_generator.c ^
   src\game\game_mode.c ^
   -o bin\main.exe ^
   %CFLAGS% ^

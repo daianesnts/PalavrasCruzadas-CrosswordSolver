@@ -4,7 +4,7 @@
 #include <raylib.h>
 #include <stdbool.h>
 
-// CORES - Blue & Yellow Theme
+// CORES - Tema Azul e Amarelo
 #define UI_COLOR_PRIMARY      (Color){ 70, 160, 240, 255 }   // Azul Claro Ceu (Buttons, Headers)
 #define UI_COLOR_SECONDARY    (Color){ 255, 204, 0, 255 }    // Amarelo (Acessado)
 #define UI_COLOR_ACCENT       (Color){ 255, 240, 100, 255 }  // Amarelo Claro (Selection)
