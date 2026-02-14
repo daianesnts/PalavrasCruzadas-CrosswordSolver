@@ -11,17 +11,17 @@
 // FUNÇÕES INTERNAS (PRIVADAS)
 
 /*
- * Função recursiva de backtracking
- * Esta é a função central do algoritmo. Ela tenta preencher
- * cada palavra do puzzle recursivamente, fazendo backtrack
- * quando não encontra solução.
+Função recursiva de backtracking
+Esta é a função central do algoritmo. Ela tenta preencher
+cada palavra do puzzle recursivamente, fazendo backtrack
+quando não encontra solução.
  */
 static bool backtrack(Grid *grid, int indicePalavra, EstadoSolver *estado);
 
 /*
- * Obtém candidatos do dicionário para uma palavra
- * Busca no dicionário palavras com o tamanho correto
- * que podem ser candidatas para preencher a posição.
+Obtém candidatos do dicionário para uma palavra
+Busca no dicionário palavras com o tamanho correto
+que podem ser candidatas para preencher a posição.
  */
 static void obterCandidatos(int tamanho, char ***candidatos,
                             int *numCandidatos);
@@ -230,4 +230,5 @@ static void liberarCandidatos(char **candidatos, int numCandidatos) {
 
   // Liberar array de ponteiros
   free(candidatos);
+
 }
