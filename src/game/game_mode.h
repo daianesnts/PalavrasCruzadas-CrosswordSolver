@@ -5,13 +5,13 @@
 #include <stdbool.h>
 
 /*
- * MÓDULO DE CONTROLE DE MODO DE JOGO
- * Este módulo gerencia o modo de jogo atual e o estado
- * de execução do solver.
- * Modos disponíveis:
- * - MODO_SOLVER: Solver automático resolve o puzzle
- * - MODO_USUARIO: Usuário joga manualmente
- */
+MÓDULO DE CONTROLE DE MODO DE JOGO
+Este módulo gerencia o modo de jogo atual e o estado
+de execução do solver.
+Modos disponíveis:
+- MODO_SOLVER: Solver automático resolve o puzzle
+- MODO_USUARIO: Usuário joga manualmente
+*/
 
 typedef enum {
   SOLVER_PARADO = 0,     // Solver não está executando
@@ -27,11 +27,9 @@ typedef enum {
 ModoJogo obterModoAtual(void);
 
 /*
- * Define o modo de jogo
- * Parâmetros: modo - Novo modo de jogo a ser definido
- * Exemplo de uso:
- *   definirModo(MODO_SOLVER);  // Ativar solver automático
- *   definirModo(MODO_USUARIO); // Permitir usuário jogar
+Define o modo de jogo
+definirModo(MODO_SOLVER);  // Ativar solver automático
+definirModo(MODO_USUARIO); // Permitir usuário jogar
  */
 void definirModo(ModoJogo modo);
 
@@ -78,5 +76,6 @@ const char *obterNomeModo(void);
 // Obtém string descritiva do estado do solver
 // Retorna: String com nome do estado (para debug/UI)
 const char *obterNomeEstadoSolver(void);
+
 
 #endif // GAME_MODE_H
