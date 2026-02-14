@@ -122,6 +122,8 @@ Aplicar na prática conceitos de:
 * Daiane Santos ([@daianesnts](https://github.com/daianesnts/))
 * Guilhereme Seixas ([@guilheeme1108-prog](https://github.com/guilheeme1108-prog/))
 * Igor Dias ([@iidias](https://github.com/iidias/))
+* Matheus de Jesus ([@Littlemonster22](https://github.com/Littlemonster22/))
 * Yasmim Passos ([@yasmim-passos](https://github.com/yasmim-passos/))
 
 Projeto realizado em grupo como atividade avaliativa da disciplina de Estrutura de Dados II, na Universidade Federal de Sergipe (UFS).
+
