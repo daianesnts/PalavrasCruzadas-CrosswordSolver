@@ -1,37 +1,42 @@
-# Makefile for Palavras Cruzadas (Windows MinGW/w64devkit) - Updated
+# Makefile para Palavras Cruzadas (Raylib)
 
-# Compiler and paths
+# Compilador e Caminhos
 CC = gcc
-CFLAGS = -g -std=c99 -Wall -Wno-missing-braces -IC:/raylib/w64devkit/include -IC:/raylib/raylib/src -IC:/raylib/include -Isrc
-LDFLAGS = -LC:/raylib/w64devkit/lib -Lsrc -lraylib -lopengl32 -lgdi32 -lwinmm
+RAYLIB_PATH = C:/raylib/w64devkit
+CFLAGS = -g -std=c99 -Wall -Wno-missing-braces -I$(RAYLIB_PATH)/include -IC:/raylib/raylib/src -IC:/raylib/include -Isrc
+LDFLAGS = -L$(RAYLIB_PATH)/lib -Lsrc -lraylib -lopengl32 -lgdi32 -lwinmm
 
-# Directories
+# Diretorios
 SRC_DIR = src
 BIN_DIR = bin
 
-# Source files
-SRCS = src/app/main.c \
-       src/ui/interface.c \
-       src/ui/ui_components.c \
-       src/data/dictionary.c \
-       src/data/grid.c \
-       src/external/api_client.c \
-       src/game/solver.c \
-       src/game/validation.c \
-       src/game/puzzle_generator.c \
-       src/game/game_mode.c
+# Arquivos
+SOURCES = $(SRC_DIR)/app/main.c \
+          $(SRC_DIR)/ui/interface.c \
+          $(SRC_DIR)/ui/ui_components.c \
+          $(SRC_DIR)/data/dictionary.c \
+          $(SRC_DIR)/data/grid.c \
+          $(SRC_DIR)/external/api_client.c \
+          $(SRC_DIR)/game/solver.c \
+          $(SRC_DIR)/game/validation.c \
+          $(SRC_DIR)/game/game_mode.c
 
 # Output
 TARGET = $(BIN_DIR)/main.exe
 
-# Build rules
+# Regras
 all: $(TARGET)
 
-$(TARGET): $(SRCS)
-	mkdir -p $(BIN_DIR)
-	$(CC) $(SRCS) -o $(TARGET) $(CFLAGS) $(LDFLAGS)
+$(TARGET): $(SOURCES)
+	@if not exist "$(BIN_DIR)" mkdir "$(BIN_DIR)"
+	$(CC) $(SOURCES) -o $(TARGET) $(CFLAGS) $(LDFLAGS)
+	@echo Build successful! Executable is in $(TARGET)
+
+run: all
+	$(TARGET)
 
 clean:
-	rm -f $(TARGET)
+	@if exist "$(BIN_DIR)" rmdir /s /q "$(BIN_DIR)"
+	@echo Cleaned up bin directory.
 
-.PHONY: all clean
+.PHONY: all run clean

@@ -15,7 +15,4 @@ void DrawSolverStatus(bool is_running, int steps);
 // Atualiza logica para interacoes UI
 void UpdateInterface(Grid* grid, EstadoJogo* estado);
 
-// Revela a proxima palavra nao resolvida
-void RevealNextUnsolvedWord(Grid* grid);
-
 #endif // INTERFACE_H

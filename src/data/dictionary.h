@@ -11,10 +11,7 @@ void dict_init(void);
 // Retorna true se valido/encontrado.
 bool dict_check_word(const char* word, char* out_def, int max_len);
 
-// Define o idioma ativo par buscas (ex: "PT" ou "EN")
-void dict_set_language(const char* lang);
-
-// Pesquisa pela palavra candidata pelo tamanho (no idioma ativo)
+// Pesquisa pela palavra candidata pelo tamanho
 void dict_search_by_size(int size, char*** out_words, int* out_count);
 
 #endif // DICTIONARY_H

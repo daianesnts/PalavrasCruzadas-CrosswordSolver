@@ -2,7 +2,6 @@
 #include "ui_components.h"
 #include <stdio.h>
 #include <math.h>
-#include <ctype.h>
 
 static int selectedX = -1;
 static int selectedY = -1;
@@ -49,7 +48,7 @@ void DrawCrosswordGrid(Grid* grid, int offsetX, int offsetY, int cellSize) {
             // Desenha fundo da cedula
             DrawRectangleRec(rect, bgColor);
             
-            // Desenha bordas (Linhas Azuis)
+            // Desenha bordas (Blue Lines)
             DrawRectangleLinesEx(rect, 1.0f, UI_COLOR_GRID_LINE);
 
             // Desenha numeros se existir
@@ -66,7 +65,7 @@ void DrawCrosswordGrid(Grid* grid, int offsetX, int offsetY, int cellSize) {
                 int textW = MeasureText(letterStr, fontSize);
                 
                 Color txtColor = UI_COLOR_TEXT;
-                if (grid->celulas[y][x].eFixa) { // Usando eFixa para significar "Verificado/Correto"
+                if (grid->celulas[y][x].eFixa) { // Usando eFixa para significar "Verified/Correct"
                      txtColor = UI_COLOR_CORRECT;
                      DrawText(letterStr, 
                          (int)(rect.x + (cellSize - textW) / 2) + 2, 
@@ -94,6 +93,7 @@ void DrawSolverStatus(bool is_running, int steps) {
         DrawText(stepStr, GetScreenWidth()/2 - 50, GetScreenHeight()/2 + 20, 20, GRAY);
     }
 }
+
 
 void UpdateInterface(Grid* grid, EstadoJogo* estado) {
     if (!grid) return;
@@ -140,22 +140,26 @@ void UpdateInterface(Grid* grid, EstadoJogo* estado) {
                  selectedY = gy;
                  cellScales[gy][gx] = 1.2f;   
              }
+        } else {
+             selectedX = -1;
+             selectedY = -1;
         }
     }
 
     // Interacao com o teclado (Digitacao)
     if (selectedX != -1 && selectedY != -1) {
         // Pula checagem para MODO_USUARIO se passando simple stade
+        // if (estado->modo == MODO_USUARIO && ... eFixa)
         if (grid->celulas[selectedY][selectedX].eFixa || grid->celulas[selectedY][selectedX].tipo == CELULA_BLOQUEADA) {
              // Nao faz nada se fixado ou bloqueado
         } else {
             int key = GetKeyPressed();
             if ((key >= 65 && key <= 90) || (key >= 97 && key <= 122)) { // A-Z
-                 if (key >= 97) key -= 32; // Maiuscula
+                 if (key >= 97) key -= 32; // Uppercase
                  grid->celulas[selectedY][selectedX].letra = (char)key;
                  grid->celulas[selectedY][selectedX].tipo = CELULA_PREENCHIDA;
                  
-                 // Animacao Pop
+                 // Pop animation
                  cellScales[selectedY][selectedX] = 1.5f; 
             } else if (key == KEY_BACKSPACE || key == KEY_DELETE) {
                  grid->celulas[selectedY][selectedX].letra = '\0';
@@ -166,42 +170,3 @@ void UpdateInterface(Grid* grid, EstadoJogo* estado) {
     }
 }
 
-void RevealNextUnsolvedWord(Grid* grid) {
-    if (!grid) return;
-
-    // Itera sobre as palavras (assumindo que estao ordenadas por numero, como feito no main.c)
-    for (int i = 0; i < grid->numPalavras; i++) {
-        Palavra* p = &grid->palavras[i];
-        bool isSolved = true;
-        
-        // Verifica se a palavra esta correta no grid
-        int r = p->inicio.linha;
-        int c = p->inicio.coluna;
-        
-        // Se ja marcada como completa, pula
-        // Mas vamos verificar as celulas tambem para garantir
-        for (int k = 0; k < p->tamanho; k++) {
-            char cellLetra = grid->celulas[r][c].letra;
-            // Se letra vazia ou diferente da resposta
-            if (toupper(cellLetra) != toupper(p->resposta[k])) {
-                isSolved = false;
-                break;
-            }
-            if (p->direcao == DIRECAO_HORIZONTAL) c++; else r++;
-        }
-
-        if (!isSolved) {
-            // Revelar esta palavra!
-            r = p->inicio.linha;
-            c = p->inicio.coluna;
-            for (int k = 0; k < p->tamanho; k++) {
-                grid->celulas[r][c].letra = p->resposta[k];
-                grid->celulas[r][c].tipo = CELULA_PREENCHIDA;
-                // Dado "Pular Palavra"
-                // Vamos preencher.
-                if (p->direcao == DIRECAO_HORIZONTAL) c++; else r++;
-            }
-            return; // Revela apenas uma
-        }
-    }
-}
